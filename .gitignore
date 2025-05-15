@@ -1,0 +1,6 @@
+# Ignorar carpeta de compilación de CLion/CMake
+cmake-build-debug/
+
+# Opcional: también puedes ignorar archivos temporales de JetBrains CLion o similares
+.idea/
+*.iml
