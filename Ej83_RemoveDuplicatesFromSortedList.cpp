@@ -2,6 +2,8 @@
 
 using namespace std;
 
+// 100% ASÍ. LOS CODIGOS EN COMENTARIOS NO SON NECESARIOS
+
 struct ListNode {
     int val;
     ListNode *next;
@@ -20,12 +22,12 @@ public:
 
         if(head == nullptr or head->next == nullptr) return head;
 
-        if(head->next->next == nullptr){
-            if(head == head->next){
-                head->next = nullptr;
-            }
-            return head;
-        }
+//        if(head->next->next == nullptr){
+//            if(head->val == (head->next)->val){
+//                head->next = nullptr;
+//            }
+//            return head;
+//        }
         ListNode* curr = head;
 
 //        ListNode *temp = head; // Ahorita cola está en posición de head
@@ -38,18 +40,25 @@ public:
 
         curr = curr->next;
 
-        while(curr->next != nullptr){
+        while(true){
             if(previo->val == curr->val){
                 numsIguales = true;
             }
             else{
                 if(numsIguales){
                     previo->next = curr;
-                    numsIguales = false;
+                    if(previo->val == curr->val){
+                        numsIguales = true;
+                    }
+                    else numsIguales = false;
                 }else{
                     previo = previo->next;
+                    if(previo->val == curr->val){
+                        numsIguales = true;
+                    }
                 }
             }
+            if(curr->next == nullptr) break;
             curr = curr->next;
         }
 
@@ -72,12 +81,23 @@ public:
 };
 
 int main(){
-    ListNode nodo3(2);
-    ListNode nodo2(2, &nodo3);
+    ListNode nodo7 (3);
+    ListNode nodo6 (3, &nodo7);
+    ListNode nodo5(2, &nodo6);
+    ListNode nodo4(2, &nodo5);
+    ListNode nodo3(1, &nodo4);
+    ListNode nodo2(1, &nodo3);
     ListNode nodo1(1, &nodo2);
 
     Solution sol;
-    sol.deleteDuplicates(&nodo1)->val;
+    ListNode* solucion = sol.deleteDuplicates(&nodo1);
+
+    //Imprimir
+    while(true){
+        cout<<solucion->val<<" ";
+        if(solucion->next == nullptr) break;
+        solucion = solucion->next;
+    }
 
     return 0;
 }
